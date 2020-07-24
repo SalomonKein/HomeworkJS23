@@ -21,6 +21,7 @@ function createDraw() {
     pH.innerHTML = `Height:`;
     pH.className = 'pH'
 
+
     document.querySelector(`div`).append(p);
     document.querySelector(`div`).append(inputWidth);
     document.querySelector(`div`).append(inputHeight);
@@ -45,8 +46,10 @@ function destroyTheButton() {
 buttonDraw.addEventListener("click", () => createDraw());
 
 function createTabl(inputW, inputH) {
+    inputW.value = 250;
+    inputH.value = 250;
     if (inputW.value < 0 || !isFinite(inputW.value) || inputW.value.trim() == "" || inputH.value < 0 || !isFinite(inputH.value) || inputH.value.trim() == "") {
-        notification.innerHTML = `Please enter correct diameter`;
+        notification.innerHTML = `Please enter correct width & height`;
         document.querySelector("button").after(notification);
         notification.style.color = "red";
     } else {
@@ -63,19 +66,18 @@ function createTabl(inputW, inputH) {
         container.style.justifyContent = "start";
         container.style.border = "1px solid grey";
         // let sideSize = `${(inputW.value)/}px`
-
+        let x = 1;
         for (let i = 0; i < (Math.floor((inputW.value / 25) * (inputH.value / 25))); i++) {
             let cell = document.createElement("button")
-            cell.className = "cell"
-            cell.style.background = "gray";
 
+            cell.className = "cell";
+            cell.classList.add(`c${x++}`);
+            cell.style.background = "gray";
             cell.style.width = `25px`;
             cell.style.height = `25px`;
             inicilCircle(cell);
             container.appendChild(cell);
             if (`${Math.floor(Math.random()*100)}` <= 16) {
-                // cell.innerHTML = "b";
-                // cell.style.color = "red";
                 cell.setAttribute('type', 'bomb');
             }
         }
@@ -84,8 +86,9 @@ function createTabl(inputW, inputH) {
     }
 
 
-}
+};
 
+let width = 250;
 
 function inicilCircle(circle) {
 
@@ -103,28 +106,53 @@ function select(button) {
         elem.classList.remove('active');
     }
     button.classList.add('active');
-    div.querySelector(".active").style.background = "#c0c0c0";
+    div.querySelector(`.active`).style.background = "#c0c0c0";
     if (div.querySelector(".active").getAttribute("type") == 'bomb') {
         button.innerHTML = "b";
         button.style.color = "red";
-
+        let cellNumber = button.className.split(" ");
+        console.log(cellNumber);
+        console.log(cellNumber[1]);
         let allCell = document.querySelectorAll(".cell");
         allCell.forEach(function(element) {
             if (element.getAttribute("type") == 'bomb') {
                 element.innerHTML = "b";
                 element.style.color = "red";
+                numberOfMines(cellNumber[1], width, div)
             }
-            // if (element.nextSibling.getAttribute("type") == 'bomb') {
-            //     element.innerHTML = "!";
-            //     element.style.color = "black";
-            // }
-            // if (element.previousSibling.getAttribute("type") == 'bomb') {
-            //     element.innerHTML = "!";
-            //     element.style.color = "black";
-            // }
+
+
             element.style.background = "#c0c0c0"
 
         });
     }
 
-}
+};
+
+function numberOfMines(number, width, div) {
+    let d = width / 25;
+    let interNumb = +(number.slice(1));
+    let cellN = interNumb - d;
+    let cellN1 = interNumb - d - 1;
+    let cellN2 = interNumb - d + 1;
+    let cellN3 = interNumb - 1;
+    let cellN4 = interNumb + 1;
+    let cellN5 = interNumb + d - 1;
+    let cellN6 = interNumb + d;
+    let cellN7 = interNumb + d + 1;
+    if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+        console.log("yoba")
+        div.querySelector(`.c` + cellN).innerHTML = "b";
+    } else {
+        div.querySelector(`.c` + cellN).innerHTML = "!";
+    };
+    div.querySelector(`.c` + cellN).innerHTML = "!";
+    div.querySelector(`.c` + cellN1).innerHTML = "!";
+    div.querySelector(`.c` + cellN2).innerHTML = "!";
+    div.querySelector(`.c` + cellN3).innerHTML = "!";
+    div.querySelector(`.c` + cellN4).innerHTML = "!";
+    div.querySelector(`.c` + cellN5).innerHTML = "!";
+    div.querySelector(`.c` + cellN6).innerHTML = "!";
+    div.querySelector(`.c` + cellN7).innerHTML = "!";
+
+};
