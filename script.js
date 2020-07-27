@@ -82,6 +82,8 @@ function createTabl(inputW, inputH) {
             container.appendChild(cell);
             if (`${Math.floor(Math.random()*100)}` <= 16) {
                 cell.setAttribute('type', 'bomb');
+            }else{
+                cell.setAttribute('type', 'empty');
             }
         }
         div.appendChild(container);
@@ -114,14 +116,14 @@ function select(button) {
         button.innerHTML = "b";
         button.style.color = "red";
         let cellNumber = button.className.split(" ");
-        console.log(cellNumber);
-        console.log(cellNumber[1]);
+        // console.log(cellNumber);
+        // console.log(cellNumber[1]);
         let allCell = document.querySelectorAll(".cell");
         allCell.forEach(function(element) {
             if (element.getAttribute("type") == 'bomb') {
                 element.innerHTML = "b";
                 element.style.color = "red";
-                numberOfMines(cellNumber[1], width, div)
+                numberOfMines(cellNumber[1], width, div);
             }
 
 
@@ -129,7 +131,77 @@ function select(button) {
 
         });
     }
-
+    else if (div.querySelector(".active").getAttribute("type") == 'empty'){
+        let cellNumber = button.className.split(" ");
+        
+        let allCell = document.querySelectorAll(".cell");
+        allCell.forEach(function(element) {
+            if (element.getAttribute("type") == 'empty') {
+                element.style.background = "#c0c0c0";
+                // emptyCell(cellNumber[1], width, div);
+            }else if (element.getAttribute("type") == 'bomb') {
+                element.innerHTML = "b";
+                element.style.color = "red";
+                numberOfMines(cellNumber[1], width, div);
+            }
+        
+       });
+    }
+};
+function emptyCell (number, width, div){
+    let d = width / 25;
+    let interNumb = +(number.slice(1));
+    let cellN = interNumb - d;
+    let cellN1 = interNumb - d - 1;
+    let cellN2 = interNumb - d + 1;
+    let cellN3 = interNumb - 1;
+    let cellN4 = interNumb + 1;
+    let cellN5 = interNumb + d - 1;
+    let cellN6 = interNumb + d;
+    let cellN7 = interNumb + d + 1;
+    
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN1).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN1).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty') {
+            console.log(cellN2);
+            div.querySelector(`.c` + cellN2).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN2).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN3).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN3).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN4).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN4).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN5).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN5).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty') {
+            div.querySelector(`.c` + cellN6).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN6).innerHTML = "!";
+        };
+        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+            div.querySelector(`.c` + cellN7).style.background = "#c0c0c0";
+        } else {
+            div.querySelector(`.c` + cellN7).innerHTML = "!";
+        };
+    
 };
 
 function numberOfMines(number, width, div) {
