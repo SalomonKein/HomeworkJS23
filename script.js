@@ -270,27 +270,35 @@ function openCell(number, width, div){
         countBomb(cellN7, width, div)
     }
     if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN).style.background = "#c0c0c0";
         openCell(`c${cellN}`, width, div)
     }
     if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN1).style.background = "#c0c0c0";
         openCell(`c${cellN1}`, width, div)
     }
     if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN2).style.background = "#c0c0c0";
         openCell(`c${cellN2}`, width, div)
     }
     if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN3).style.background = "#c0c0c0";
         openCell(`c${cellN3}`, width, div)
     }
     if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN4).style.background = "#c0c0c0";
         openCell(`c${cellN4}`, width, div)
     }
     if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN5).style.background = "#c0c0c0";
         openCell(`c${cellN5}`, width, div)
     }
     if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN6).style.background = "#c0c0c0";
         openCell(`c${cellN6}`, width, div)
     }
     if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty') {
+        div.querySelector(`.c` + cellN7).style.background = "#c0c0c0";
         openCell(`c${cellN7}`, width, div)
     }
 };
