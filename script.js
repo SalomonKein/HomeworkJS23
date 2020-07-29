@@ -80,7 +80,7 @@ function createTabl(inputW, inputH) {
                 select(cell);
             });
             container.appendChild(cell);
-            if (`${Math.floor(Math.random()*100)}` <= 16) {
+            if (`${Math.floor(Math.random()*100)}` <= 13) {
                 cell.setAttribute('type', 'bomb');
 
             } else {
@@ -126,34 +126,25 @@ function select(button) {
             }
             // element.style.background = "#c0c0c0";
         });
-    } else if (div.querySelector(".active").getAttribute("type") == 'empty') {        
+    } else if (div.querySelector(".active").getAttribute("type") == 'empty') {
         openCell(cellNumber[1], width, div)
-        // let allCell = document.querySelectorAll(".cell");
-        // allCell.forEach(function(element) {
-        //     if (element.getAttribute("type") == 'empty') {                
-        //         element.style.background = "#c0c0c0";
-        //         // emptyCell(cellNumber[1], width, div);
-        //     } else if (element.getAttribute("type") == 'bomb') {
-        //         element.innerHTML = "b";
-        //         element.style.color = "red";
-        //     }
-
-        // });
-    }else if (div.querySelector(".active").getAttribute("type") == 'nearBomb') {        
-        openCell(cellNumber[1], width, div)
-        // let allCell = document.querySelectorAll(".cell");
-        // allCell.forEach(function(element) {
-        //     if (element.getAttribute("type") == 'empty') {                
-        //         element.style.background = "#c0c0c0";
-        //         // emptyCell(cellNumber[1], width, div);
-        //     } else if (element.getAttribute("type") == 'bomb') {
-        //         element.innerHTML = "b";
-        //         element.style.color = "red";
-        //     }
-
-        // });
+            // let allCell = document.querySelectorAll(".cell");
+            // allCell.forEach(function(element) {
+            //     if (element.getAttribute("type") == 'empty') {                
+            //         element.style.background = "#c0c0c0";
+            //         // emptyCell(cellNumber[1], width, div);
+            //     } else if (element.getAttribute("type") == 'bomb') {
+            //         element.innerHTML = "b";
+            //         element.style.color = "red";
+            //     }
+            // selectCell(cellNumber[1], width);
+            // });
+    } else if (div.querySelector(".active").getAttribute("type") == 'nearBomb') {
+        // openCell(cellNumber[1], width, div);
+        let interNumb = +(cellNumber[1].slice(1));
+        countBomb(interNumb, width, div)
     }
-    
+
 };
 
 
@@ -226,14 +217,36 @@ function flag() {
     });
 
 };
-function serchBomb(cellNumb){
-   
-        document.querySelector(`.c` + cellNumb).removeAttribute("type");
-        document.querySelector(`.c` + cellNumb).setAttribute("type", 'nearBomb');
 
-    
+function selectCell(number, width) {
+    let d = width / 25;
+    let interNumb = +(number.slice(1));
+    let cellN = interNumb - d;
+    let cellN1 = interNumb - d - 1;
+    let cellN2 = interNumb - d + 1;
+    let cellN3 = interNumb - 1;
+    let cellN4 = interNumb + 1;
+    let cellN5 = interNumb + d - 1;
+    let cellN6 = interNumb + d;
+    let cellN7 = interNumb + d + 1;
+    let allCellSelect = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
+    // allCellSelect.forEach(function(element) {
+
+    // });
+    console.log(allCellSelect);
+    console.log(number);
+    return;
 }
-function openCell(number, width, div){
+
+function serchBomb(cellNumb) {
+
+    document.querySelector(`.c` + cellNumb).removeAttribute("type");
+    document.querySelector(`.c` + cellNumb).setAttribute("type", 'nearBomb');
+
+
+}
+
+function openCell(number, width, div) {
     let d = width / 25;
     let interNumb = +(number.slice(1));
     let cellN = interNumb - d;
@@ -268,41 +281,13 @@ function openCell(number, width, div){
     }
     if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'nearBomb') {
         countBomb(cellN7, width, div)
-    }
-    if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty') {
+    } else {
         div.querySelector(`.c` + cellN).style.background = "#c0c0c0";
         openCell(`c${cellN}`, width, div)
     }
-    if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN1).style.background = "#c0c0c0";
-        openCell(`c${cellN1}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN2).style.background = "#c0c0c0";
-        openCell(`c${cellN2}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN3).style.background = "#c0c0c0";
-        openCell(`c${cellN3}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN4).style.background = "#c0c0c0";
-        openCell(`c${cellN4}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN5).style.background = "#c0c0c0";
-        openCell(`c${cellN5}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN6).style.background = "#c0c0c0";
-        openCell(`c${cellN6}`, width, div)
-    }
-    if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty') {
-        div.querySelector(`.c` + cellN7).style.background = "#c0c0c0";
-        openCell(`c${cellN7}`, width, div)
-    }
 };
-function countBomb(number, width, div){
+
+function countBomb(number, width, div) {
     let d = width / 25;
     let interNumb = number;
     let cellN = interNumb - d;
@@ -314,33 +299,91 @@ function countBomb(number, width, div){
     let cellN6 = interNumb + d;
     let cellN7 = interNumb + d + 1;
     let count = 0;
-    
-        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb'){
-        count++
-        };
-        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb'){
-           count++
-        };
-        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb'){
-            count++
-        };
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb'){
-            count++
-        };
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb'){
-            count++
-        };
-        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb'){
-            count++
-        };
-         if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb'){
-            count++
-        };
-        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb'){
-            count++
-        };
+    let allCellSelect = [cellN4, cellN6, cellN7];
+    let allCellSelect2 = [cellN, cellN1, cellN3];
+    let allCellSelect3 = [cellN3, cellN4, cellN5, cellN6, cellN7];
+    let allCellSelect4 = [cellN, cellN1, cellN2, cellN3, cellN4];
+    let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
+    let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
+    let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
+    console.log(number);
+    if (interNumb == 1) {
+        allCellSelect.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else if (interNumb == d * d) {
+        allCellSelect2.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else if (interNumb <= d) {
+        allCellSelect3.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else if (interNumb > d * d - d) {
+        allCellSelect4.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else if ((interNumb % d) == 1) {
+        allCellSelect5.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else if ((interNumb % d) == 0) {
+        allCellSelect6.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    } else {
+        allCellSelect7.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+            };
+            document.querySelector(".c" + number).innerHTML = `${count}`;
+        });
+    };
+    // if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
+    // if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+    //     count++
+    // };
 
-        document.querySelector(".c"+ number).innerHTML = `${count}`;
+    // document.querySelector(".c" + number).innerHTML = `${count}`;
+    document.querySelector(".c" + number).style.background = "#c0c0c0";
 };
 
 function numberOfMines(number, width, div) {
@@ -354,117 +397,55 @@ function numberOfMines(number, width, div) {
     let cellN5 = interNumb + d - 1;
     let cellN6 = interNumb + d;
     let cellN7 = interNumb + d + 1;
-       if (interNumb == 1) {        
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty' ||div.querySelector(`.c` + cellN4).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN4);
-               };
-        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN6).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN6);
-               };
-        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN7).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN7);
-               };
+    let allCellSelect = [cellN4, cellN6, cellN7];
+    let allCellSelect2 = [cellN, cellN1, cellN3];
+    let allCellSelect3 = [cellN3, cellN4, cellN5, cellN6, cellN7];
+    let allCellSelect4 = [cellN, cellN1, cellN2, cellN3, cellN4];
+    let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
+    let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
+    let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
+    if (interNumb == 1) {
+        allCellSelect.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     } else if (interNumb == d * d) {
-                if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN);
-               };
-        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN1).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN1);
-              };
-
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN3).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN3);
-             };
+        allCellSelect2.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     } else if (interNumb <= d) {
-       
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN3).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN3);
-                };
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN4).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN4);
-                };
-        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN5).getAttribute("type") == 'nearBomb') {
-                serchBomb(cellN5);
-        };
-        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN6).getAttribute("type") == 'nearBomb') {
-                serchBomb( cellN6);
-        };
-        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN7).getAttribute("type") == 'nearBomb') {
-                serchBomb(cellN7);
-        };
-    } else if (interNumb > d * d - d) {        
-        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
-               serchBomb(cellN);
-        };
-        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN1).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN1);
-        };
-        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN2).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN2);
-        };
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN3).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN3);
-        };
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN4).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN4);
-        };
+        allCellSelect3.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
+    } else if (interNumb > d * d - d) {
+        allCellSelect4.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     } else if ((interNumb % d) == 1) {
-        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN);
-        };
-        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN2).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN2);
-        };
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN4).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN4);
-        };
-        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN6).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN6);
-        };
-        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN7).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN7);
-        };
+        allCellSelect5.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     } else if ((interNumb % d) == 0) {
-        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN);
-        };
-        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN1).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN1);
-        };
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN3).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN3);
-        };
-        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN5).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN5);
-        };
-        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN6).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN6);
-        };
+        allCellSelect6.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     } else {
-        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN);
-        };
-        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN1).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN1);
-        };
-        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN2).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN2,);
-        };
-        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN3).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN3);
-        };
-        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN4).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN4);
-        };
-        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN5).getAttribute("type") == 'nearBomb') {
-        serchBomb(cellN5);
-        };
-        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN6).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN6);
-        };
-        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'empty'||div.querySelector(`.c` + cellN7).getAttribute("type") == 'nearBomb') {
-            serchBomb(cellN7);
-        };
+        allCellSelect7.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
     };
 
 
