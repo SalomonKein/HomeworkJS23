@@ -266,50 +266,75 @@ function openCell(number, width, div) {
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
     if (interNumb == 1) {
         allCellSelect.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else if (interNumb == d * d) {
         allCellSelect2.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else if (interNumb <= d) {
         allCellSelect3.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else if (interNumb > d * d - d) {
         allCellSelect4.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else if ((interNumb % d) == 1) {
         allCellSelect5.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else if ((interNumb % d) == 0) {
         allCellSelect6.forEach(elem => {
-            if ( div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-            };
+                console.log(interNumb % d)
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
         });
     } else {
-            div.querySelector(`.c` + cellN).style.background = "#c0c0c0";
-            openCell(`c${cellN}`, width, div)
-        }
+        allCellSelect7.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                countBomb(elem, width, div)
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+
+            }
+        });
+    }
     // else {
     //     allCellSelect7.forEach(elem => {
-            
+
     //             // div.querySelector(`.c` + elem).style.background = "#c0c0c0";
     //             openCell(`c${elem}`, width, div)
-            
+
     //     });
     // };
     // if (div.querySelector(`.c` + cellN).getAttribute("type") == 'nearBomb') {
@@ -360,93 +385,108 @@ function countBomb(number, width, div) {
     let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
     let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
-    
+    // console.log(allCellSelect);
+
     if (interNumb == 1) {
-        allCellSelect.forEach(elem => {
+        allCellSelect.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect);
+                return;
             };
-            
+
         });
     } else if (interNumb == d * d) {
-        allCellSelect2.forEach(elem => {
+        allCellSelect2.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect2);
+                return;
             };
-           
+
         });
     } else if (interNumb <= d) {
-        allCellSelect3.forEach(elem => {
+        allCellSelect3.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect3);
+                return;
             };
-            
+
         });
     } else if (interNumb > d * d - d) {
-        allCellSelect4.forEach(elem => {
+        allCellSelect4.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect4);
+                return;
             };
-            
+
         });
     } else if ((interNumb % d) == 1) {
-        allCellSelect5.forEach(elem => {
+        allCellSelect5.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect5);
+                return;
             };
-            
+
         });
     } else if ((interNumb % d) == 0) {
-        allCellSelect6.forEach(elem => {
+        allCellSelect6.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect6);
+                return;
             };
-            
+
         });
     } else {
-        allCellSelect7.forEach(elem => {
+        allCellSelect7.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
                 console.log(count)
+                console.log(allCellSelect7);
+                return;
             };
-            
+            console.log(count);
         });
-        document.querySelector(".c" + number).innerHTML = `${count}`;
+        // document.querySelector(".c" + number).innerHTML = `${count}`;
     };
-    // if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
-    // if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
-    //     count++
-    // };
+    //     if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
+    //     if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+    //         count++
+    //     };
 
-    // document.querySelector(".c" + number).innerHTML = `${count}`;
-    document.querySelector(".c" + number).style.background = "#c0c0c0";
+    //     document.querySelector(".c" + number).innerHTML = `${count}`;
+    //     document.querySelector(".c" + number).style.background = "#c0c0c0";
 };
 
 function numberOfMines(number, width, div) {
