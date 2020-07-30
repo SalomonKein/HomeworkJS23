@@ -385,10 +385,15 @@ function countBomb(number, width, div) {
     let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
     let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
-    // console.log(allCellSelect);
-
+    let allCellSelect8 = [cellN3, cellN5, cellN6];
+    console.log(`interNumb=${interNumb}`);
+    console.log(`d=${d}`);
+    console.log(`number=${number}`);
     if (interNumb == 1) {
+        console.log(`1`);
+            console.log(`allCellSelect1=${allCellSelect}`);
         allCellSelect.forEach(function(elem) {
+            
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
@@ -398,7 +403,10 @@ function countBomb(number, width, div) {
 
         });
     } else if (interNumb == d * d) {
+        console.log(`2`);
+            console.log(`allCellSelect2=${allCellSelect2}`);
         allCellSelect2.forEach(function(elem) {
+            
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
@@ -408,6 +416,8 @@ function countBomb(number, width, div) {
 
         });
     } else if (interNumb <= d) {
+        console.log(`3`);
+        console.log(`allCellSelect3=${allCellSelect3}`);
         allCellSelect3.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
@@ -418,6 +428,8 @@ function countBomb(number, width, div) {
 
         });
     } else if (interNumb > d * d - d) {
+        console.log(`4`);
+        console.log(`allCellSelect4=${allCellSelect4}`);
         allCellSelect4.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
@@ -428,6 +440,8 @@ function countBomb(number, width, div) {
 
         });
     } else if ((interNumb % d) == 1) {
+        console.log(`5`);
+        console.log(`allCellSelect5=${allCellSelect5}`);
         allCellSelect5.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
@@ -438,6 +452,8 @@ function countBomb(number, width, div) {
 
         });
     } else if ((interNumb % d) == 0) {
+        console.log(`6`);
+        console.log(`allCellSelect6=${allCellSelect6}`);
         allCellSelect6.forEach(function(elem) {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
@@ -447,8 +463,10 @@ function countBomb(number, width, div) {
             };
 
         });
-    } else {
+    } else if (d<interNumb>d*d-d || (interNumb % d) !== 0 || (interNumb % d) !== 1 ) {
         allCellSelect7.forEach(function(elem) {
+            console.log(`7`);
+            console.log(`allCellSelect7=${allCellSelect7}`);
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
                 count++
                 document.querySelector(".c" + number).innerHTML = `${count}`;
@@ -459,7 +477,19 @@ function countBomb(number, width, div) {
             console.log(count);
         });
         // document.querySelector(".c" + number).innerHTML = `${count}`;
-    };
+    }else if (interNumb == d) {
+        console.log(`8`);
+        console.log(`allCellSelect8=${allCellSelect8}`);
+        allCellSelect8.forEach(function(elem) {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
+                count++
+                document.querySelector(".c" + number).innerHTML = `${count}`;
+                console.log(allCellSelect8);
+                return;
+            };
+
+        });
+    }
     //     if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
     //         count++
     //     };
