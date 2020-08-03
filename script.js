@@ -77,7 +77,7 @@ function createTabl(inputW, inputH) {
             cell.style.height = `25px`;
             // inicilCircle(cell);
             cell.addEventListener("click", () => {
-                select(cell);
+                select(cell, );
             });
             container.appendChild(cell);
             if (`${Math.floor(Math.random()*100)}` <= 13) {
@@ -104,7 +104,7 @@ let width = 250;
 
 // };
 
-function select(button) {
+function select(button, event) {
 
     let div = document.querySelector("div")
     let selected = div.querySelectorAll('.active');
@@ -122,10 +122,14 @@ function select(button) {
             if (element.getAttribute("type") == 'bomb') {
                 element.innerHTML = "b";
                 element.style.color = "red";
+                element.style.background = "black";
                 // numberOfMines(cellNumber[1], width, div);
             }
-            // element.style.background = "#c0c0c0";
+            // element.style.background = "black";
+            // event.stopImmediatePropagation();
+
         });
+
     } else if (div.querySelector(".active").getAttribute("type") == 'empty') {
         openCell(cellNumber[1], width, div)
             // let allCell = document.querySelectorAll(".cell");
@@ -141,6 +145,7 @@ function select(button) {
             // });
     } else if (div.querySelector(".active").getAttribute("type") == 'nearBomb') {
         // openCell(cellNumber[1], width, div);
+
         let interNumb = +(cellNumber[1].slice(1));
         countBomb(interNumb, width, div)
     }
@@ -264,13 +269,16 @@ function openCell(number, width, div) {
     let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
     let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
+    let allCellSelect8 = [cellN3, cellN5, cellN6];
+
+
     if (interNumb == 1) {
         allCellSelect.forEach(elem => {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else if (interNumb == d * d) {
@@ -279,16 +287,17 @@ function openCell(number, width, div) {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else if (interNumb <= d) {
+
         allCellSelect3.forEach(elem => {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else if (interNumb > d * d - d) {
@@ -297,7 +306,7 @@ function openCell(number, width, div) {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else if ((interNumb % d) == 1) {
@@ -306,17 +315,27 @@ function openCell(number, width, div) {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else if ((interNumb % d) == 0) {
         allCellSelect6.forEach(elem => {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 countBomb(elem, width, div)
-                console.log(interNumb % d)
+
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+                // openCell(`.c${elem}`, width, div)
+            }
+        });
+    } else if (interNumb == d) {
+        allCellSelect8.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                countBomb(elem, width, div)
 
+            } else {
+                div.querySelector(`.c` + elem).style.background = "#c0c0c0";
+                // openCell(`.c${elem}`, width, div)
             }
         });
     } else {
@@ -325,7 +344,7 @@ function openCell(number, width, div) {
                 countBomb(elem, width, div)
             } else {
                 div.querySelector(`.c` + elem).style.background = "#c0c0c0";
-
+                // openCell(`.c${elem}`, width, div)
             }
         });
     }
@@ -386,138 +405,161 @@ function countBomb(number, width, div) {
     let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
     let allCellSelect8 = [cellN3, cellN5, cellN6];
-    console.log(`interNumb=${interNumb}`);
-    console.log(`d=${d}`);
-    console.log(`number=${number}`);
+
     if (interNumb == 1) {
-        console.log(`1`);
-            console.log(`allCellSelect1=${allCellSelect}`);
-        allCellSelect.forEach(function(elem) {
-            
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect);
-                return;
-            };
 
-        });
+
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+
     } else if (interNumb == d * d) {
-        console.log(`2`);
-            console.log(`allCellSelect2=${allCellSelect2}`);
-        allCellSelect2.forEach(function(elem) {
-            
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect2);
-                return;
-            };
 
-        });
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+
     } else if (interNumb <= d) {
-        console.log(`3`);
-        console.log(`allCellSelect3=${allCellSelect3}`);
-        allCellSelect3.forEach(function(elem) {
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect3);
-                return;
-            };
 
-        });
+
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+
     } else if (interNumb > d * d - d) {
-        console.log(`4`);
-        console.log(`allCellSelect4=${allCellSelect4}`);
-        allCellSelect4.forEach(function(elem) {
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect4);
-                return;
-            };
 
-        });
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+            count++
+        };
+
     } else if ((interNumb % d) == 1) {
-        console.log(`5`);
-        console.log(`allCellSelect5=${allCellSelect5}`);
-        allCellSelect5.forEach(function(elem) {
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect5);
-                return;
-            };
 
-        });
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+
     } else if ((interNumb % d) == 0) {
-        console.log(`6`);
-        console.log(`allCellSelect6=${allCellSelect6}`);
-        allCellSelect6.forEach(function(elem) {
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect6);
-                return;
-            };
 
-        });
-    } else if (d<interNumb>d*d-d || (interNumb % d) !== 0 || (interNumb % d) !== 1 ) {
-        allCellSelect7.forEach(function(elem) {
-            console.log(`7`);
-            console.log(`allCellSelect7=${allCellSelect7}`);
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(count)
-                console.log(allCellSelect7);
-                return;
-            };
-            console.log(count);
-        });
-        // document.querySelector(".c" + number).innerHTML = `${count}`;
-    }else if (interNumb == d) {
-        console.log(`8`);
-        console.log(`allCellSelect8=${allCellSelect8}`);
-        allCellSelect8.forEach(function(elem) {
-            if (div.querySelector(`.c` + elem).getAttribute("type") == 'Bomb') {
-                count++
-                document.querySelector(".c" + number).innerHTML = `${count}`;
-                console.log(allCellSelect8);
-                return;
-            };
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+            count++
+        };
 
-        });
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+    } else if (d < interNumb > d * d - d || (interNumb % d) !== 0 || (interNumb % d) !== 1) {
+
+        if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+
+
+    } else if (interNumb == d) {
+
+        if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
+            count++
+        };
+
+        if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
+            count++
+        };
+        if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
+            count++
+        };
     }
-    //     if (div.querySelector(`.c` + cellN).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN1).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN2).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN3).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN4).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN5).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN6).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
-    //     if (div.querySelector(`.c` + cellN7).getAttribute("type") == 'bomb') {
-    //         count++
-    //     };
 
-    //     document.querySelector(".c" + number).innerHTML = `${count}`;
-    //     document.querySelector(".c" + number).style.background = "#c0c0c0";
-};
+    document.querySelector(".c" + number).innerHTML = `${count}`;
+    div.querySelector(".c" + number).style.background = "#c0c0c0";
+
+}
 
 function numberOfMines(number, width, div) {
     let d = width / 25;
@@ -537,6 +579,7 @@ function numberOfMines(number, width, div) {
     let allCellSelect5 = [cellN, cellN2, cellN4, cellN6, cellN7];
     let allCellSelect6 = [cellN, cellN1, cellN3, cellN5, cellN6];
     let allCellSelect7 = [cellN, cellN1, cellN2, cellN3, cellN4, cellN5, cellN6, cellN7];
+    let allCellSelect8 = [cellN3, cellN5, cellN6];
     if (interNumb == 1) {
         allCellSelect.forEach(elem => {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
@@ -569,6 +612,12 @@ function numberOfMines(number, width, div) {
         });
     } else if ((interNumb % d) == 0) {
         allCellSelect6.forEach(elem => {
+            if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
+                serchBomb(elem);
+            };
+        });
+    } else if (interNumb == d) {
+        allCellSelect8.forEach(elem => {
             if (div.querySelector(`.c` + elem).getAttribute("type") == 'empty' || div.querySelector(`.c` + elem).getAttribute("type") == 'nearBomb') {
                 serchBomb(elem);
             };
