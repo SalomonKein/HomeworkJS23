@@ -79,6 +79,13 @@ function createTabl(inputW, inputH) {
             cell.addEventListener("click", () => {
                 select(cell, );
             });
+            cell.oncontextmenu = function() { return false; }
+            cell.addEventListener("contextmenu", () => {
+                setFlagOnBomb(cell, )
+
+            });
+
+
             container.appendChild(cell);
             if (`${Math.floor(Math.random()*100)}` <= 13) {
                 cell.setAttribute('type', 'bomb');
@@ -92,9 +99,32 @@ function createTabl(inputW, inputH) {
     }
 
     flag();
+    console.log(numOfMines);
 };
 
 let width = 250;
+
+function setFlagOnBomb(button) {
+    console.log("setFlagOnBomb")
+    let div = document.querySelector("div")
+    let selected = div.querySelectorAll('.active');
+    for (let elem of selected) {
+        elem.classList.remove('active');
+    }
+    button.classList.add('active');
+
+    // div.querySelector(`.active`).style.background = "#c0c0c0";
+    button.innerHTML = "F";
+    button.style.color = "blue";
+    if (button.getAttribute('flag') == 'active') {
+        button.innerHTML = "";
+        button.removeAttribute("flag");
+    } else {
+        button.setAttribute('flag', 'active');
+        button.innerHTML = "F";
+        button.style.color = "yellow";
+    }
+}
 
 // function inicilCircle(circle) {
 
@@ -208,6 +238,7 @@ function emptyCell(number, width, div) {
     };
 
 };
+let numOfMines = 0;
 
 function flag() {
 
@@ -217,11 +248,13 @@ function flag() {
         if (element.getAttribute("type") == 'bomb') {
             let cellNumber = element.className.split(" ");
             numberOfMines(cellNumber[1], width, div);
+            numOfMines++;
         }
 
     });
 
 };
+
 
 function selectCell(number, width) {
     let d = width / 25;
