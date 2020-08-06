@@ -143,6 +143,8 @@ function select(button, event) {
     }
     button.classList.add('active');
     div.querySelector(`.active`).style.background = "#c0c0c0";
+    let numbForМiew = document.createElement("div");
+    numbForМiew
     let cellNumber = button.className.split(" ");
     if (div.querySelector(".active").getAttribute("type") == 'bomb') {
         // button.innerHTML = "b";
