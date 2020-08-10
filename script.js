@@ -55,52 +55,78 @@ function createTabl(inputW, inputH) {
     } else {
         destroyTheButton();
         notification.remove();
-        let div = document.querySelector("div");
-        let container = document.createElement("div");
-        container.style.marginTop = `50px`;
-        container.style.width = `${(inputW.value)}px`;
-        container.style.height = `${(inputH.value)}px`;
-        container.style.display = "flex";
-        container.style.flexWrap = "wrap";
-        container.style.flexDirection = "row";
-        container.style.justifyContent = "start";
-        container.style.border = "1px solid grey";
-        // let sideSize = `${(inputW.value)/}px`
-        let x = 1;
-        for (let i = 0; i < (Math.floor((inputW.value / 25) * (inputH.value / 25))); i++) {
-            let cell = document.createElement("button")
-
-            cell.className = "cell";
-            cell.classList.add(`c${x++}`);
-            cell.style.background = "gray";
-            cell.style.width = `25px`;
-            cell.style.height = `25px`;
-            // inicilCircle(cell);
-            cell.addEventListener("click", () => {
-                select(cell, );
-            });
-            cell.oncontextmenu = function() { return false; }
-            cell.addEventListener("contextmenu", () => {
-                setFlagOnBomb(cell, )
-
-            });
-
-
-            container.appendChild(cell);
-            if (`${Math.floor(Math.random()*100)}` <= 13) {
-                cell.setAttribute('type', 'bomb');
-
-            } else {
-                cell.setAttribute('type', 'empty');
-            }
-        }
-        div.appendChild(container);
-
+        inputW = 250;
+        inputH = 250;
+        table(inputW, inputH);
     }
+
 
     flag();
     console.log(numOfMines);
 };
+
+function table(inputW, inputH) {
+    inputW.value = 250;
+    inputH.value = 250;
+    let div = document.querySelector("div");
+    let container = document.createElement("div");
+    container.style.marginTop = `50px`;
+    container.style.width = `${(inputW.value)}px`;
+    container.style.height = `${(inputH.value)}px`;
+    container.style.display = "flex";
+    container.style.flexWrap = "wrap";
+    container.style.flexDirection = "row";
+    container.style.justifyContent = "start";
+    container.style.border = "1px solid grey";
+    // let sideSize = `${(inputW.value)/}px`
+    let x = 1;
+    for (let i = 0; i < (Math.floor((inputW.value / 25) * (inputH.value / 25))); i++) {
+        let cell = document.createElement("button")
+
+        cell.className = "cell";
+        cell.classList.add(`c${x++}`);
+        cell.style.background = "gray";
+        cell.style.width = `25px`;
+        cell.style.height = `25px`;
+        // inicilCircle(cell);
+        cell.addEventListener("click", () => {
+            select(cell, );
+            restartButton();
+        });
+        cell.oncontextmenu = function() { return false; };
+        cell.addEventListener("contextmenu", () => {
+            setFlagOnBomb(cell, );
+        });
+
+
+        container.appendChild(cell);
+        if (`${Math.floor(Math.random()*100)}` <= 13) {
+            cell.setAttribute('type', 'bomb');
+
+        } else {
+            cell.setAttribute('type', 'empty');
+        }
+    }
+    div.appendChild(container);
+
+}
+
+function restartButton() {
+    if (document.querySelector(".restBut")) {
+        document.querySelector(".restBut").remove();
+    };
+    let button = document.createElement("button");
+    button.className = "restBut";
+    button.style.background = "brown";
+    button.style.width = `150px`;
+    button.style.height = `25px`;
+    button.innerHTML = "restart";
+    document.querySelector("div").append(button);
+    button.addEventListener("click", () => {
+
+        table();
+    });
+}
 
 let width = 250;
 
@@ -136,7 +162,7 @@ function setFlagOnBomb(button) {
 
 function select(button, event) {
 
-    let div = document.querySelector("div")
+    let div = document.querySelector("div");
     let selected = div.querySelectorAll('.active');
     for (let elem of selected) {
         elem.classList.remove('active');
