@@ -55,8 +55,7 @@ function createTabl(inputW, inputH) {
     } else {
         destroyTheButton();
         notification.remove();
-        inputW = 250;
-        inputH = 250;
+
         table(inputW, inputH);
     }
 
@@ -70,6 +69,7 @@ function table(inputW, inputH) {
     inputH.value = 250;
     let div = document.querySelector("div");
     let container = document.createElement("div");
+    container.className = "container";
     container.style.marginTop = `50px`;
     container.style.width = `${(inputW.value)}px`;
     container.style.height = `${(inputH.value)}px`;
@@ -112,19 +112,19 @@ function table(inputW, inputH) {
 }
 
 function restartButton() {
-    if (document.querySelector(".restBut")) {
-        document.querySelector(".restBut").remove();
+    if (document.querySelector(".dButton")) {
+        document.querySelector(".dButton").remove();
     };
     let button = document.createElement("button");
-    button.className = "restBut";
+    button.className = "dButton";
     button.style.background = "brown";
     button.style.width = `150px`;
     button.style.height = `25px`;
     button.innerHTML = "restart";
     document.querySelector("div").append(button);
     button.addEventListener("click", () => {
-
-        table();
+        document.querySelector(".container").remove();
+        createDraw();
     });
 }
 
